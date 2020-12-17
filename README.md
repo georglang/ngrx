@@ -1,4 +1,5 @@
 # ngrx
+
 Learning ngrx https://ngrx.io/
 
 # What is state
@@ -66,6 +67,20 @@ If you need to change the state of the store, than replace the whole state objec
 - Retrieve data action when initalizing a component
 - Start global spinner action wehn saving data
 
+### Dispatching an Action
+
+Before we can dispatch an action from a component, we must inject the store into that component
+
+```
+// the generic type argument must be <any>
+constructor(private store: Store<any>)
+
+// dispatch an action
+this.store.dispatch({
+  type: '[Product] Toggle Product Code',
+});
+```
+
 ## Reducer
 
 Reducers are functions that specify how state changes in response to an action.
@@ -127,7 +142,27 @@ Not all dispatched actions can directly update the store by the reducer because 
 
 The reducer updates the store and the store notifies all subscribers
 
-## Advantages Of The Redux Pattern
+# Store
+
+## Subscribing to a store to get state changes
+
+To access a value in the store, we select the appopriate slice of state.
+
+```
+this.store.select('products');
+
+// the argument of select is name of the slice of state
+```
+
+The ngrx select method and select operator both return a slice of state as an Observable.
+To notify the component about a state change subscribe to this Observable.
+
+## Unsubscribing from a store
+
+1. Approach: Store the subscription in a variable and unsubscribe it in ngOnDestroy()
+   -> It´s not handy if you have a lot of subscriptions
+
+# Advantages Of The Redux Pattern
 
 - Having a centralized immutable state tree makes state changes more explicit and predictable
 - Performance improvment with onPush
@@ -145,16 +180,17 @@ The reducer updates the store and the store notifies all subscribers
 
 Allows us to compose your application state from our feature module reducers
 
-
 ### Sub-slice State
+
 A state e.g. product could be sliced into sub-slices
-*productList and productData* are smaller slices
+_productList and productData_ are smaller slices
 
-So we define a reducer for each sub-slice of state.   
-These reducers are aggregated for their associated feature.   
+So we define a reducer for each sub-slice of state.  
+These reducers are aggregated for their associated feature.
 
-It´s useful when a single feature has lots of state, allowing us to 
+It´s useful when a single feature has lots of state, allowing us to
 break our reducers into smaller pieces.
+
 ```
 // State in store
 
@@ -176,3 +212,5 @@ Store.Module.forFeature('products',
 
 
 ```
+
+# Define state and actions
