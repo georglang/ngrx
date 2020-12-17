@@ -1,0 +1,15 @@
+<h1>Products</h1>
+
+<div>
+  Display Product Code
+  <input
+    type="checkbox"
+    name="displayProductCode"
+    (change)="checkChange()"
+    [checked]="displayCode"
+  />
+  <br>
+  <br>
+
+  <ng-container *ngIf="displayCode">Here is some Product Code</ng-container>
+</div>
