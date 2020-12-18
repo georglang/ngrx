@@ -33,6 +33,16 @@ export const getShowProductCode = createSelector(
   (state) => state.showProductCode // state - is the products slice of state
 );
 
+export const getCurrentProduct = createSelector(
+  getProductFeatureState,
+  (state) => state.currentProduct
+);
+
+export const getProducts = createSelector(
+  getProductFeatureState,
+  (state) => state.products
+);
+
 // Create a Reducer
 export const productReducer = createReducer<ProductState>(
   initialState,
