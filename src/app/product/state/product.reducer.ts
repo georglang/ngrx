@@ -8,6 +8,8 @@ import {
 import { Product } from '../product';
 import * as AppState from './../../state/app.state';
 
+import * as ProductActions from './product.actions';
+
 export interface State extends AppState.State {
   products: ProductState;
 }
@@ -47,10 +49,8 @@ export const getProducts = createSelector(
 export const productReducer = createReducer<ProductState>(
   initialState,
   on(
-    createAction('[Product] Toggle Product Code'),
+    ProductActions.toggleProductCode,
     (state): ProductState => {
-      console.log('original state: ', JSON.stringify(state));
-
       return {
         ...state,
         showProductCode: !state.showProductCode,

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProductState, State } from './state/product.reducer';
+import {
+  getShowProductCode,
+  ProductState,
+  State,
+} from './state/product.reducer';
+
+import * as ProductActions from './state/product.actions';
 
 @Component({
   selector: 'app-product',
@@ -13,14 +19,12 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     // ToDo: Unsubscribe
-    this.store.select('products').subscribe((products) => {
-      this.displayCode = products.showProductCode;
-    });
+    this.store
+      .select(getShowProductCode)
+      .subscribe((showProductCode) => (this.displayCode = showProductCode));
   }
 
   checkChange(): void {
-    this.store.dispatch({
-      type: '[Product] Toggle Product Code',
-    });
+    this.store.dispatch(ProductActions.toggleProductCode());
   }
 }
